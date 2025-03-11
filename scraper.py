@@ -7,6 +7,7 @@ max_reviews = 10000  # Target jumlah ulasan yang ingin diambil
 data = []  # List untuk menyimpan data
 batch_size = 100  # Jumlah ulasan per batch
 counter = 0  # Counter untuk menghitung jumlah ulasan yang sudah diambil
+continuation_token = None  # Token untuk melanjutkan pengambilan data
 
 print("Memulai proses scraping...")
 
@@ -25,10 +26,13 @@ while counter < max_reviews:
     # Proses data dalam batch
     for review in result:
         data.append({
+            "Username": review["userName"],
             "Text": review["content"],
             "Rating": review["score"],
             "Tanggal": review["at"],
-            "Username": review["userName"]
+            "Jumlah Suka": review["thumbsUpCount"],
+            "Balasan Pengembang": review["replyContent"] if review["replyContent"] else None,
+            "Versi Aplikasi": review["reviewCreatedVersion"] if review["reviewCreatedVersion"] else None
         })
         counter += 1
         print(f"Sukses ambil data ke - {counter}")
@@ -42,11 +46,8 @@ while counter < max_reviews:
         print("Tidak ada lagi ulasan yang tersedia.")
         break
 
-# Buat DataFrame dan tambahkan label
+# Buat DataFrame
 df = pd.DataFrame(data)
-df["Label Sentimen"] = df["Rating"].apply(
-    lambda x: "positif" if x > 3 else ("netral" if x == 3 else "negatif")
-)
 
 # Simpan ke CSV
 df.to_csv("dataset.csv", index=False, encoding="utf-8")
