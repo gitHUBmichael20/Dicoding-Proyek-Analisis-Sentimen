@@ -1,5 +1,3 @@
----
-
 # Sentiment Analysis of Wuthering Waves Google Play Reviews
 
 ## Project Overview
