@@ -1,5 +1,3 @@
-Berikut adalah contoh isi `README.md` yang menjelaskan proyek Anda secara profesional, mencakup deskripsi proyek, langkah operasi, dan informasi `requirements.txt`. Saya akan menulisnya dalam format Markdown yang rapi dan informatif.
-
 ---
 
 # Sentiment Analysis of Wuthering Waves Google Play Reviews
